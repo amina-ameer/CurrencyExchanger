@@ -1,0 +1,33 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #1a1a1a;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border:1px solid #ffffff;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.nav-links {
+    display:flex;
+    gap:0.5rem;
+
+    /* button {
+        border:1px solid #ffffff;
+        border-radius: 0.25rem;
+        background-color: #1a1a1a;
+        padding:0.5rem;
+    } */
+
+    a {
+        color:#ffffff
+    }
+}
