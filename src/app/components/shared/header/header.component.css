@@ -7,6 +7,7 @@
   padding: 1rem 2rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border:1px solid #ffffff;
+  --bs-gutter-x: 0rem;
 }
 
 .container {
