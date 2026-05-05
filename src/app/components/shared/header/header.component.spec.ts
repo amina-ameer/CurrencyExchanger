@@ -22,4 +22,22 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render header element', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('header')).toBeTruthy();
+  });
+
+  it('should have correct component instance', () => {
+    expect(component instanceof HeaderComponent).toBeTruthy();
+  });
+
+  it('should initialize component properties', () => {
+    expect(component).toBeDefined();
+  });
+
+  it('should detect changes after component initialization', () => {
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
 });

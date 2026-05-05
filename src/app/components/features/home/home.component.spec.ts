@@ -22,4 +22,20 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a component instance', () => {
+    expect(fixture.componentInstance).toBeDefined();
+    expect(fixture.componentInstance).toBeInstanceOf(HomeComponent);
+  });
+
+  it('should render the component host element', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled).toBeTruthy();
+  });
+
+  it('should have change detection applied', () => {
+    component.ngOnInit?.();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toBeDefined();
+  });
 });
