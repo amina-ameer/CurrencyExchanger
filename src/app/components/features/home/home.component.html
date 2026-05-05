@@ -1,0 +1,8 @@
+<!-- <div>
+    <app-header></app-header>
+</div> -->
+<div>
+    <h2>Currency Exchanger</h2>  
+        <app-currency-exchanger (selectedFromCurrency)="getSelectedFromCurrency($event)" (currencyRatesData)="getCurrencyRatesData($event)"></app-currency-exchanger>
+</div>
+<app-display-card [selectedFromCurrency]="selectedFromCurrency" [currencyRates]="currencyRates"></app-display-card>

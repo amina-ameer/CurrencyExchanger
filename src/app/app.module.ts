@@ -5,19 +5,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/features/home/home.component';
+import { HeaderComponent } from './components/shared/header/header.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CurrencyExchangerComponent } from './components/currency-exchanger/currency-exchanger.component';
+import { CurrencyExchangerComponent } from './components/shared/currency-exchanger/currency-exchanger.component';
+import { DetailsComponent } from './components/features/details/details.component';
+import { CurrencyNamePipe } from './shared/pipes/currency-name.pipe';
+import { DisplayCardComponent } from './components/features/home/components/display-card/display-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    CurrencyExchangerComponent
+    CurrencyExchangerComponent,
+    DetailsComponent,
+    CurrencyNamePipe,
+    DisplayCardComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,7 @@ import { CurrencyExchangerComponent } from './components/currency-exchanger/curr
     HttpClientModule,
     AppRoutingModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

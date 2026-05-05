@@ -1,0 +1,44 @@
+.currency-container{
+    border:1px solid #ffffff;
+    padding: 1rem;
+    /* display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1rem; */
+}
+
+.grid-container {
+    display:grid;
+    grid-template-columns:1fr 1fr 40px 1fr;
+    gap:1rem;
+    align-items:end ;
+}
+
+.form-group {
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+}
+
+.convert-button {
+    grid-column: 2 /span 3;
+}
+
+.exchange-rate-display {
+    border:1px solid #ffffff;
+    padding:0.5rem;
+    text-align: center;
+}
+
+.result{
+    border:1px solid #ffffff;
+    padding:0.5rem;
+    text-align: center;
+    grid-column: 2/span 2;
+}
+
+.detail{
+    padding:1rem;
+    display:flex;
+    justify-content: space-between;
+}

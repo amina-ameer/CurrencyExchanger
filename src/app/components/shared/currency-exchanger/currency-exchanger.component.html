@@ -1,0 +1,39 @@
+  <div *ngIf="isDetail" class="detail">
+    <h2>{{fromCurrency}} - {{ fromCurrency | currencyName }}</h2>
+    <button class="btn btn-primary" (click)="backToHome()">Back To Home</button>
+  </div>
+<div class="currency-container">
+  <div class="grid-container">
+    <div class="form-group">
+    <label>Amount</label>
+        <input type="number" name="amount" id="amount" [(ngModel)]="amount">
+    </div>
+    <div class="form-group">
+        <label for="from">From</label>
+    <select name="from" id="from" [(ngModel)]="fromCurrency" disabled="{{isDetail}}">
+        <option *ngFor="let currency of currencyList" [value]="currency">{{ currency }}</option>
+    </select>
+    </div>
+    <button class="btn btn-primary" (click)="swapCurrencies()" disabled="{{isDetail}}">
+         Swap
+      </button>
+    <div class="form-group">
+        <label for="to">To</label>
+    <select name="to" id="to" [(ngModel)]="toCurrency">
+        <option *ngFor="let currency of currencyList" [value]="currency">{{ currency }}</option>
+    </select>
+
+  </div>
+  <div class="convert-button d-grid gap-2">
+    <button class="btn btn-primary" (click)="convertCurrency()" [disabled]="amount === undefined">Convert</button>
+  </div>
+  <div class="exchange-rate-display">
+    1.00 {{fromCurrency}} = {{currencyRate | number:'1.4-4'}} {{toCurrency}}
+  </div>
+  <div class="result">
+    {{convertedAmount | number:'1.2-2'}} {{toCurrency}}
+  </div>
+    <div class="d-grid gap-2" *ngIf="!isDetail">
+        <button class="btn btn-primary" (click)="showDetails()">More Details</button>
+    </div>
+</div>
