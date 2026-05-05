@@ -1,9 +1,9 @@
 <div class="grid">
     <ng-container *ngFor="let currency of currencyList">
-        <div class="card text-white" *ngIf="(selectedFromCurrency!=='' && selectedFromCurrency!==currency)">
+        <div class="card text-white" *ngIf="(selectedFromCurrency!==currency)">
             <div class="card-body">
                 <h5 class="card-title">{{currency}}</h5>
-                <p class="card-text">1.00 {{selectedFromCurrency}} = {{currencyRates[currency] | number:'1.4-4'}} {{currency}}</p>
+                <p class="card-text">1.00 {{selectedFromCurrency}} = {{convertedAmount ? (currencyRates[currency] | number:'1.4-4') : 'XX.XX'}} {{currency}}</p>
             </div>
         </div>
 </ng-container>

@@ -12,7 +12,8 @@ export class HomeComponent implements OnInit {
   
   popularRates: { [key: string]: number } = {};
   currencyRates:Record<string, number>={};
-  selectedFromCurrency:string=''
+  selectedFromCurrency:string='';
+  convertedAmount:number | undefined;
 
 
   constructor() { }
@@ -30,5 +31,11 @@ export class HomeComponent implements OnInit {
 
   getCurrencyRatesData(currencyRates:Record<string, number>){
     this.currencyRates=currencyRates;
+    console.log('currencyRates',this.currencyRates)
+  }
+
+  getConvertedAmount(convertedAmount:number){
+    console.log('convertedAmount',convertedAmount)
+    this.convertedAmount = convertedAmount;
   }
 }

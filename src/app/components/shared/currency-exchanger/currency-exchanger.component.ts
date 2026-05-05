@@ -15,6 +15,7 @@ export class CurrencyExchangerComponent implements OnInit {
   currencyRates:Record<string, number>={};
   @Output() selectedFromCurrency = new EventEmitter<string>();
   @Output() currencyRatesData = new EventEmitter<Record<string, number>>();
+  @Output() convertedAmountData = new EventEmitter<number>();
   currencyRate: number=0;
   //currencies: string[] = [];
   fromCurrency: string = 'EUR';
@@ -24,10 +25,6 @@ export class CurrencyExchangerComponent implements OnInit {
   isDetail:boolean=false;
 
   ngOnInit(): void {
-    this.currencyService.getExchangeRates(this.fromCurrency).subscribe((data: ExchangeRateResponse) => {
-      this.currencyRates=data.rates;
-      this.setPopularRates()
-    });
     this.route.queryParams.subscribe(params => {
       console.log('query params',params)
       if(params['from']){
@@ -37,12 +34,22 @@ export class CurrencyExchangerComponent implements OnInit {
         this.amount = params['amount'] ? parseFloat(params['amount']) : undefined;
         this.convertedAmount = params['convertedAmount'] ? parseFloat(params['convertedAmount']) : 0;
         this.currencyRate = params['currencyRate'] ? parseFloat(params['currencyRate']) : 0;
+        this.getExchangeRates();
       }
       else{
         this.isDetail=false;
+        this.getExchangeRates();
       }
+      this.selectedFromCurrency.emit(this.fromCurrency)
       // this.fromCurrency = params['from'] || '';
       // this.toCurrency = params['to'] || '';
+    });
+  }
+
+  getExchangeRates() {
+ this.currencyService.getExchangeRates(this.fromCurrency).subscribe((data: ExchangeRateResponse) => {
+      this.currencyRates=data.rates;
+      this.setPopularRates()
     });
   }
   setPopularRates() {
@@ -57,6 +64,7 @@ export class CurrencyExchangerComponent implements OnInit {
 }
   swapCurrencies() {
     [this.fromCurrency, this.toCurrency] = [this.toCurrency, this.fromCurrency];
+    this.selectedFromCurrency.emit(this.fromCurrency)
   }
   convertCurrency() {
     this.selectedFromCurrency.emit(this.fromCurrency)
@@ -64,6 +72,9 @@ export class CurrencyExchangerComponent implements OnInit {
       this.currencyRate = data.rates[this.toCurrency]
       //const rate = data.rates[this.toCurrency];
       this.convertedAmount = this.amount? this.amount * this.currencyRate : 0;
+      this.currencyRates=data.rates;
+      this.setPopularRates()
+      this.convertedAmountData.emit(this.convertedAmount);
     });
   }
   showDetails() {

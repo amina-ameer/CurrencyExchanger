@@ -1,4 +1,7 @@
 <!-- <div>
     <app-header></app-header>
 </div> -->
-<app-currency-exchanger (selectedFromCurrency)="getSelectedFromCurrency($event)"></app-currency-exchanger>
+<app-currency-exchanger (selectedFromCurrency)="getSelectedFromCurrency($event)" (currencyRatesData)="currencyRatesData($event)"></app-currency-exchanger>
+<div style="width: 100%; max-width: 40rem; margin: auto;">
+  <canvas #historicalCurrencyChart></canvas>
+</div>

@@ -14,8 +14,8 @@
         <option *ngFor="let currency of currencyList" [value]="currency">{{ currency }}</option>
     </select>
     </div>
-    <button class="btn btn-primary" (click)="swapCurrencies()" disabled="{{isDetail}}">
-         Swap
+    <button class="btn btn-sm btn-outline-secondary" (click)="swapCurrencies()" [disabled]="isDetail">
+         <mat-icon>swap_horiz</mat-icon>
       </button>
     <div class="form-group">
         <label for="to">To</label>
@@ -28,10 +28,10 @@
     <button class="btn btn-primary" (click)="convertCurrency()" [disabled]="amount === undefined">Convert</button>
   </div>
   <div class="exchange-rate-display">
-    1.00 {{fromCurrency}} = {{currencyRate | number:'1.4-4'}} {{toCurrency}}
+    1.00 {{fromCurrency}} = {{currencyRate ? (currencyRate | number:'1.4-4') : 'XX.XX'}} {{toCurrency}}
   </div>
   <div class="result">
-    {{convertedAmount | number:'1.2-2'}} {{toCurrency}}
+    {{convertedAmount ? (convertedAmount | number:'1.2-2') : 'XX.XX'}} {{toCurrency}}
   </div>
     <div class="d-grid gap-2" *ngIf="!isDetail">
         <button class="btn btn-primary" (click)="showDetails()">More Details</button>
