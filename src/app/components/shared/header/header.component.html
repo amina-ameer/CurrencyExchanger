@@ -5,8 +5,8 @@
   </div>
   <div>
   <nav class="nav-links">
-    <a [routerLink]="[]" class="btn btn-lg active" role="button" aria-pressed="true">EUR-USD Details</a>
-    <a [routerLink]="[]" class="btn btn-lg active" role="button" aria-pressed="true">EUR-GBP Details</a> 
+    <a [routerLink]="['/details']" [queryParams]="{ from: 'EUR', to: 'USD' }" class="btn btn-lg active" role="button" aria-pressed="true">EUR-USD Details</a>
+    <a [routerLink]="['/details']" [queryParams]="{ from: 'EUR', to: 'GBP' }" class="btn btn-lg active" role="button" aria-pressed="true">EUR-GBP Details</a> 
   </nav>
   </div>
   </div>
