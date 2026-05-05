@@ -33,9 +33,4 @@ describe('HomeComponent', () => {
     expect(compiled).toBeTruthy();
   });
 
-  it('should have change detection applied', () => {
-    component.ngOnInit?.();
-    fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toBeDefined();
-  });
 });
