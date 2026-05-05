@@ -1,13 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import Chart  from 'chart.js/auto';
+import { CurrencyService } from 'src/app/services/currency-service.service';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedFromCurrency: string='';
   selectedToCurrency: string='';
   currencyRates: Record<string, number>={};
@@ -15,22 +17,24 @@ export class DetailsComponent implements OnInit {
   chart: any;
   labels: any;
   chartData: any;
-  constructor(private route: ActivatedRoute) { }
+  private subscriptions = new Subscription();
+  constructor(private route: ActivatedRoute,private currencyService: CurrencyService) { }
 
     ngOnInit(): void {
-       this.route.queryParams.subscribe(params => {
-        this.selectedFromCurrency = params['from'] || '';
-        this.selectedToCurrency = params['to'] || '';
-       })
+       this.subscriptions.add(
+         this.route.queryParams.subscribe(params => {
+           this.selectedFromCurrency = params['from'] || '';
+           this.selectedToCurrency = params['to'] || '';
+         })
+       );
         //  this.currencyService.getHistoricalRates('EUR', '2020-01-01').subscribe((data)=>{
         //     console.log('datsa',data)
         // })
-        // this.currencyService.getYearlyMonthlyRatesSequential(this.selectedToCurrency).subscribe((data)=>{
-        //   console.log('datsa',data);
-        //   localStorage.setItem('historicalRates', JSON.stringify(data));
-        // });
-        
-       
+       this.subscriptions.add(
+         this.currencyService.getYearlyMonthlyRatesSequential(this.selectedToCurrency).subscribe((data)=>{
+           localStorage.setItem('historicalRates', JSON.stringify(data));
+         })
+       );
       //this.createChart(labels, data)
       }
       ngAfterViewInit(): void {
@@ -89,6 +93,12 @@ getSelectedFromCurrency(selectedCurrency:string){
         plugins: { title: { display: true, text: 'Historical Rates (Past 12 Months)' } }
       }
     });
+  }
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.subscriptions.unsubscribe();
   }
 }
 
