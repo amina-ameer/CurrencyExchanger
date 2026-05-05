@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/features/home/home.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatIconModule } from '@angular/material/icon';
 import { CurrencyExchangerComponent } from './components/shared/currency-exchanger/currency-exchanger.component';
 import { DetailsComponent } from './components/features/details/details.component';
