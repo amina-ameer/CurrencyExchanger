@@ -5,17 +5,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './components/shared/shared.module';
+import { HomeComponent } from './components/features/home/home.component';
+import { HeaderComponent } from './components/shared/header/header.component';
 
-import { MatButtonModule } from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatIconModule } from '@angular/material/icon';
+import { CurrencyExchangerComponent } from './components/shared/currency-exchanger/currency-exchanger.component';
 import { DetailsComponent } from './components/features/details/details.component';
+import { CurrencyNamePipe } from './shared/pipes/currency-name.pipe';
+import { DisplayCardComponent } from './components/features/home/components/display-card/display-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    CurrencyExchangerComponent,
     DetailsComponent,
+    CurrencyNamePipe,
+    DisplayCardComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +31,7 @@ import { DetailsComponent } from './components/features/details/details.componen
     HttpClientModule,
     AppRoutingModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
-    BrowserAnimationsModule,
-    SharedModule
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

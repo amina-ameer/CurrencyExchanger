@@ -9,12 +9,11 @@ import { CurrencyService } from 'src/app/services/currency-service.service';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit, OnDestroy {
+export class DetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('historicalCurrencyChart') chartCanvas!: ElementRef;
   selectedFromCurrency: string = '';
   selectedToCurrency: string = '';
   currencyRates: Record<string, number> = {};
-  isLoading: boolean = false;
   chart: any;
   labels: any;
   chartData: any;
@@ -22,50 +21,27 @@ export class DetailsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private currencyService: CurrencyService) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.subscriptions.add(
       this.route.queryParams.subscribe(params => {
         this.selectedFromCurrency = params['from'] || '';
         this.selectedToCurrency = params['to'] || '';
       })
     );
-    if (this.selectedToCurrency) {
-      this.fetchHistoricalRates()
-    }
-    // this.subscriptions.add(
-
-    //   this.currencyService.getYearlyMonthlyRatesSequential(this.selectedToCurrency).subscribe((data) => {
-    //     localStorage.setItem('historicalRates', JSON.stringify(data));
-    //     this.createChartData();
-    //   })
-    // );
-    // this.createChartData();
+    this.subscriptions.add(
+      this.currencyService.getYearlyMonthlyRatesSequential(this.selectedToCurrency).subscribe((data) => {
+        localStorage.setItem('historicalRates', JSON.stringify(data));
+      })
+    );
   }
 
-  fetchHistoricalRates() {
-    this.subscriptions.add(
-    this.currencyService.getYearlyMonthlyRatesSequential(this.selectedToCurrency).subscribe((data) => {
-      localStorage.setItem('historicalRates', JSON.stringify(data));
-      this.isLoading = false;
+  ngAfterViewInit(): void {
+    if (this.chartCanvas && this.chartCanvas.nativeElement) {
       setTimeout(() => {
         this.createChartData();
-      }, 1000);
-   }));
+      }, 1000); // Delay to ensure data is loaded
+
+    }
   }
-
-  // ngAfterViewInit(): void {
-  //   console.log('details component view init', this.isLoading)
-  //   //this.isLoading = false;
-  //   if (this.chartCanvas && this.chartCanvas.nativeElement) {
-  //     console.log('canvas element found, creating chart data')
-  //     console.log('this.isLoading', this.isLoading)
-  //     //this.isLoading = false;
-  //     setTimeout(() => {
-  //       this.createChartData();
-  //     }, 1000); // Delay to ensure data is loaded
-
-  //   }
-  // }
 
   currencyRatesData(currencyRates: Record<string, number>) {
     this.currencyRates = currencyRates;
@@ -75,6 +51,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   createChartData() {
     const historicalRates = localStorage.getItem('historicalRates') ? JSON.parse(localStorage.getItem('historicalRates') || '[]') : [];
     this.labels = historicalRates.map((r: any) => r.date).reverse();
+
     if (this.selectedFromCurrency === 'EUR') {
       this.chartData = historicalRates.map((r: any) => r.rates[this.selectedToCurrency]).reverse();
     } else {
