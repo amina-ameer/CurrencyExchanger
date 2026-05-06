@@ -6,15 +6,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./display-card.component.css']
 })
 export class DisplayCardComponent implements OnInit {
-currencyList:string[] = ['USD','EUR','INR','GBP','JPY','KWD','BHD','OMR','JOD','AED'];
-@Input() selectedFromCurrency:string=''
-@Input() currencyRates:Record<string, number>={};
-@Input() convertedAmount:number | undefined;
+  currencyList:string[] = ['USD','EUR','INR','GBP','JPY','KWD','BHD','OMR','JOD','AED'];
+
+  @Input() selectedFromCurrency:string=''
+  @Input() currencyRates:Record<string, number>={};
+  @Input() convertedAmount:number | undefined;
+  
   constructor() { }
 
   ngOnInit(): void {
-    console.log('selctedFromCurrency',this.selectedFromCurrency)
-    console.log('currencyRates',this.currencyRates)
   }
 
 
