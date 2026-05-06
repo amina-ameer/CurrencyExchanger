@@ -1,7 +1,4 @@
 <app-currency-exchanger (selectedFromCurrency)="getSelectedFromCurrency($event)" (currencyRatesData)="currencyRatesData($event)"></app-currency-exchanger>
-<div style="width: 100%; max-width: 40rem; margin: auto;">  
-  <canvas #historicalCurrencyChart *ngIf="!isLoading"></canvas>
-</div>
-<div class="spinner">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div style="width: 100%; max-width: 40rem; margin: auto;">
+  <canvas #historicalCurrencyChart></canvas>
 </div>
